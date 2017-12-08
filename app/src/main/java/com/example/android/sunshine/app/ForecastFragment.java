@@ -54,9 +54,18 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_COORD_LONG = 8;
 
 
-    ForecastAdapter mForecastAdapter;
+    private ForecastAdapter mForecastAdapter;
+    private ListView listView;
 
     public ForecastFragment() {
+    }
+
+    public ForecastAdapter getmForecastAdapter() {
+        return mForecastAdapter;
+    }
+
+    public void setmForecastAdapter(ForecastAdapter mForecastAdapter) {
+        this.mForecastAdapter = mForecastAdapter;
     }
 
     @Override
@@ -107,7 +116,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -140,6 +149,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        listView.setAdapter(mForecastAdapter);
         mForecastAdapter.swapCursor(cursor);
     }
 
